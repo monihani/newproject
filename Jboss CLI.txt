@@ -1,0 +1,52 @@
+keytool -genkey -alias <name> -keyalg RSA -keystore <name>
+
+Import the SSL certificate into the keystore
+At the command prompt, enter:
+
+keytool -import -alias your_alias_name -trustcacerts -file ssl_certificate.p7b -keystore your_keystore_filename
+Note: The alias name and keystore name in this command must be the same as the alias name and keystore name used during the generation of the private key and certificate signing request (CSR).
+ 
+
+http://www.mastertheboss.com/jboss-server/jboss-script/jboss-wildfly-cheatsheet-for-linux-administrators
+
+/bin/jboss-cli.sh --connect -controller=IP_ADDRESS:Port
+
+/host=master/server=server-one
+
+/subsystem=datasources/data-source=ExampleDS/statistics=pool:read-resource(include-runtime=true)
+/subsystem=datasources/data-source=ExampleDS/statistics=jdbc:read-resource(include-runtime=true)
+
+
+How to configure a resource in a Domain:
+=======================================
+
+/profile=full/subsystem=ejb3/thread-pool=default:write-attribute(name=max-threads,value=10)
+
+How to reach a resource available on a server:
+=============================================
+
+/host=master/server=server-one/subsystem=datasources/data-source=MySQL/statistics=pool/:read-resource(recursive=false,include-runtime=true)
+
+
+Handling server start/stop/restart/reload:
+=========================================
+
+/server-group=main-server-group:start-servers
+
+/server-group=main-server-group:restart-servers
+
+/server-group=main-server-group:stop-servers
+
+A practical script for shutting down a domain (remember shut down the slave host at first!):
+===========================================================================================
+
+./jboss-cli.sh --connect controller=IP_Address:Port /host=slave:shutdown
+
+How to start the HC/DC by using domain.sh:
+=========================================
+
+domain.sh -b Machine_IP -Djboss.domain.master.address=DC_IP -Djboss.bind.address.management=Machine_IP
+
+
+
+
